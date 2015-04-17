@@ -1,0 +1,52 @@
+<div ng-controller="mainCtrl as main" layout="column">
+  <md-toolbar class="md-primary">
+    <h1 class="md-toolbar-tools">
+      {{main.formTitle}}
+    </h1>
+  </md-toolbar>
+  <md-content class="md-padding">
+    <form name="registerForm" ng-submit="registerForm.$valid && main.register(registerForm)">
+      <md-input-container>
+        <label>{{main.loginField}}</label>
+        <input name="login" required minlength="3" ng-change="main.checkName(registerForm.login)" ng-model="main.user.name">
+        <div ng-messages="registerForm.login.$error">
+          <div ng-message="required">This field is required.</div>
+          <div ng-message="minlength">Login must be at least 3 characters long.</div>
+          <div ng-message="accountUsed">Login is already used.</div>
+          <div ng-message="server">{{main.server.login}}</div>
+        </div>
+      </md-input-container>
+      <md-input-container>
+        <label>{{main.passField}}</label>
+        <input name="password" type="password" required minlength="8" ng-change="main.checkFmt(registerForm.password)" ng-model="main.user.pass">
+        <div ng-messages="registerForm.password.$error">
+          <div ng-message="required">This field is required.</div>
+          <div ng-message="minlength">Password must be at least 8 characters long.</div>
+          <div ng-message="format">Wrong format.</div>
+          <div ng-message="server">{{main.server.password}}</div>
+        </div>
+      </md-input-container>
+      <md-input-container>
+        <label>{{main.confPassField}}</label>
+        <input name="confirmPassword" type="password" required ng-change="main.checkPas(registerForm.confirmPassword)" ng-model="main.user.confPas">
+        <div ng-messages="registerForm.confirmPassword.$error">
+          <div ng-message="required">This field is required.</div>
+          <div ng-message="notequal">Passwords are not equal.</div>
+          <div ng-message="server">{{main.server.confirmPassword}}</div>
+        </div>
+      </md-input-container>
+      <md-input-container>
+        <label>{{main.mailField}}</label>
+        <input type="email" name="email" required ng-change="main.checkMail(registerForm.email)" ng-model="main.user.mail">
+        <div ng-messages="registerForm.email.$error">
+          <div ng-message="required">This field is required.</div>
+          <div ng-message="email">Type correct email address.</div>
+          <div ng-message="server">{{main.server.email}}</div>
+        </div>
+      </md-input-container>
+      <md-input-container>
+        <md-button ng-disabled="registerForm.$invalid" class="md-primary md-raised">{{main.regButton}}</md-button>
+      </md-input-container>
+    </form>
+  </md-content>
+</div>
